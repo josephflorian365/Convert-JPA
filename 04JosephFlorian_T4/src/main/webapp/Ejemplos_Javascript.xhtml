@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body> 
+        <!--        <p:inputText type="text" id="field1" value="Hello World!"/>
+                <p:inputText type="text" id="field2"/>
+        
+                <p:commandButton onclick="myFunction()" value="Copy Text"/>
+        
+                <script>
+                    function myFunction() {
+                        document.getElementById("field2").value = document.getElementById("field1").value;
+                    }
+                </script>-->
+
+        <!--        <p:commandButton onclick="myFunction()" value="Click me"/>
+        
+                <p id="demo"></p>
+        
+                <script>
+                    function myFunction() {
+                        document.getElementById("demo").innerHTML = "Hello World";
+                    }
+                </script>-->
+        <p:inputText type="text" id="field2"  onkeyup="validarEmail(this)"/>
+        <a id='resultado'></a>
+        <script>
+            function validarEmail(elemento) {
+
+                var texto = document.getElementById(elemento.id).value;
+                var regex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+
+                if (!regex.test(texto)) {
+                    document.getElementById("resultado").innerHTML = "Correo invalido";
+                } else {
+                    document.getElementById("resultado").innerHTML = "";
+                }
+
+            }
+        </script>
+        <style>
+            #fechahoy{font-size:1.2em;color:green;margin:12px;}
+        </style>
+
+        <p:commandButton onclick="getElementById('demo').innerHTML = Date()" value="What is the time?"/>
+        <p:commandButton value="Imprime esta página" onclick="window.print()"/>
+        <p id="demo"></p>
+        <script>
+            window.setInterval(BlinkIt, 500);
+            var color = "red";
+            function BlinkIt() {
+                var blink = document.getElementById("blink");
+                color = (color == "#ffffff") ? "red" : "#ffffff";
+                blink.style.color = color;
+                blink.style.fontSize = '36px';
+            }
+        </script>
+        <div id="blink">Hola!</div>
+        <div id="blink" onclick="parent.location = 'http://norfipc.com'">
+            Hola!</div>
+        <a href="javascript:location.href='mailto:?SUBJECT=Te%20sugiero:
+           '+document.title+'&amp;BODY='+escape(location.href);void 0">
+            Sugerir esta página</a>
+    </h:body>
+</html>
+

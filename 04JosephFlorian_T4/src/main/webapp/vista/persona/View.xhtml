@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PersonaViewDlg" widgetVar="PersonaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{vista.ViewPersonaTitle}">
+            <h:form id="PersonaViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{personaController.selected != null}">
+                        <h:outputText value="#{vista.ViewPersonaLabel_nombre}"/>
+                        <h:outputText value="#{personaController.selected.nombre}" title="#{vista.ViewPersonaTitle_nombre}"/>
+                        <h:outputText value="#{vista.ViewPersonaLabel_apellidoPaterno}"/>
+                        <h:outputText value="#{personaController.selected.apellidoPaterno}" title="#{vista.ViewPersonaTitle_apellidoPaterno}"/>
+                        <h:outputText value="#{vista.ViewPersonaLabel_apellidoMaterno}"/>
+                        <h:outputText value="#{personaController.selected.apellidoMaterno}" title="#{vista.ViewPersonaTitle_apellidoMaterno}"/>
+                        <h:outputText value="DNI"/>
+                        <h:outputText value="#{personaController.selected.dni}"/>
+                        <h:outputText value="#{vista.ViewPersonaLabel_estadoCivil}"/>
+                        <h:outputText value="#{personaController.selected.estadoCivil}" title="#{vista.ViewPersonaTitle_estadoCivil}">
+                            <f:converter converterId="ConverterEstadoCivil"/>
+                        </h:outputText>
+                        <h:outputText value="#{vista.ViewPersonaLabel_edad}"/>
+                        <h:outputText value="#{personaController.selected.edad}" title="#{vista.ViewPersonaTitle_edad}"/>
+                        <h:outputText value="#{vista.ViewPersonaLabel_enfermedad}"/>
+                        <h:outputText value="#{personaController.selected.enfermedad}" title="#{vista.ViewPersonaTitle_enfermedad}">
+                            <f:converter converterId="ConverterVista"/>
+                        </h:outputText>
+                        <h:outputText value="#{vista.ViewPersonaLabel_descEnf}"/>
+                        <h:outputText value="#{personaController.selected.descEnf}" title="#{vista.ViewPersonaTitle_descEnf}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{vista.Close}" oncomplete="PF('PersonaViewDialog').hide();"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

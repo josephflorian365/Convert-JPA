@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <script src="../../resources/js/dniApisPeru.js" type="text/javascript"></script>
+        <p:dialog id="PersonaCreateDlg" widgetVar="PersonaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{vista.CreatePersonaTitle}">
+            <h:form id="PersonaCreateForm" prependId="false">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{personaController.selected != null}">
+                        <p:outputLabel value="Dni" for="dni" />
+                        <p:inputText id="dni" onkeyup="traer()" maxlength="8" value="#{personaController.selected.dni}" placeholder="Buscar">
+                            <p:keyFilter regEx="/[0-9]/"/>
+                        </p:inputText>
+                        <p:outputLabel value="Nombre" for="nombre" />
+                        <p:inputText id="nombre" value="#{personaController.selected.nombre}" onkeyup="javascript:this.value = this.value.toUpperCase();" title="#{vista.CreatePersonaTitle_nombre}" >
+                            <p:keyFilter regEx="/[A-Z_Ñ_a-z_ñ_á_é_í_ó_ú_' ']/" />
+                        </p:inputText>
+                        <p:outputLabel value="Apellido Paterno" for="apellido_paterno" />
+                        <p:inputText id="apellido_paterno" value="#{personaController.selected.apellidoPaterno}" onkeyup="javascript:this.value = this.value.toUpperCase();" title="#{vista.CreatePersonaTitle_apellidoPaterno}" >
+                            <p:keyFilter regEx="/[A-Z_Ñ_a-z_ñ_á_é_í_ó_ú_' ']/" />
+                        </p:inputText>
+                        <p:outputLabel value="Apellido Materno" for="apellido_materno" />
+                        <p:inputText id="apellido_materno" value="#{personaController.selected.apellidoMaterno}" onkeyup="javascript:this.value = this.value.toUpperCase();" title="#{vista.CreatePersonaTitle_apellidoMaterno}" >
+                            <p:keyFilter regEx="/[A-Z_Ñ_a-z_ñ_á_é_í_ó_ú_' ']/" />
+                        </p:inputText>
+                        <p:outputLabel value="Estado Civil" for="estadoCivil" />
+                        <p:selectOneRadio  id="estadoCivil" 
+                                           value="#{personaController.selected.estadoCivil}" 
+                                           unselectable="false" 
+                                           required="true" requiredMessage="Requiere un estado civil">
+                            <f:selectItem itemValue="S" itemLabel="Soltero"/>
+                            <f:selectItem itemValue="C" itemLabel="Casado" />
+                        </p:selectOneRadio>
+                        <p:outputLabel value="Edad" for="edad" />
+                        <p:inputText id="edad" value="#{personaController.selected.edad}" title="#{vista.CreatePersonaTitle_edad}" >
+                            <p:keyFilter regEx="/[0-9]/"/>
+                        </p:inputText>
+                        <p:outputLabel value="¿Delicado de salud?" for="enfermedad" />
+                        <p:selectBooleanCheckbox value="#{personaController.selected.enfermedad}" 
+                                                 id="enfermedad" title="#{vista.CreatePersonaTitle_enfermedad}">
+                            <p:ajax update="descEnf"/>
+                        </p:selectBooleanCheckbox>
+                        <p:outputLabel value="Descripción de la enfermedad" for="descEnf" />
+                        <p:inputText disabled="#{personaController.selected.enfermedad eq 'false'}" id="descEnf" value="#{personaController.selected.descEnf}" title="#{vista.CreatePersonaTitle_descEnf}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{personaController.create}" value="#{vista.Save}" update="display,:PersonaListForm:datalist,:growl" oncomplete="handleSubmit(args,'PersonaCreateDialog');"/>
+                    <p:commandButton value="#{vista.Cancel}" oncomplete="PF('PersonaCreateDialog').hide();"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
